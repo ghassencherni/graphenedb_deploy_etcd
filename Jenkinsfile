@@ -35,7 +35,7 @@ node {
           sleep 20
           export KUBECONFIG=config
           export SERVICE_IP=\$(kubectl get svc --namespace default graphenedb-etcd --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
-          echo "etcd URL: https://$SERVICE_IP:2379/"
+          echo "etcd URL: https://\$SERVICE_IP:2379/"
          """
     }
   }
