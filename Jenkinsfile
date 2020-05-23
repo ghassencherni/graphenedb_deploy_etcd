@@ -48,6 +48,7 @@ if(action == 'Destroy ETCD') {
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           export KUBECONFIG=config
           helm del --purge graphenedb-etcd
+          kubectl delete svc/graphenedb-etcd
          """
     }
     stage('Delete secret used to store etcd certs') {
