@@ -34,7 +34,7 @@ node {
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           sleep 20
           export KUBECONFIG=config
-          ETCD_URL=https://\$(kubectl get svc --namespace default graphenedb-etcd --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+          ETCD_URL=https://\$(kubectl get svc --namespace default graphenedb-etcd --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"):2379
          """
     }
   }
