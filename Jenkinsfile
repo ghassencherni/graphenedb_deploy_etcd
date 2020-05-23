@@ -24,7 +24,7 @@ node {
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           export KUBECONFIG=config
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm install bitnami/etcd --name graphenedb-etcd --values graphenedb.etcd.values --version 4.8.1
+          helm install bitnami/etcd --name graphenedb-etcd --values graphenedb.etcd.values --version $etcd_chart_version
          """
     }
     
