@@ -298,7 +298,7 @@ metrics:
   ## Prometheus Operator ServiceMonitor configuration
   ##
   serviceMonitor:
-    enabled: false
+    enabled: enable
     ## Namespace in which Prometheus is running
     ##
     # namespace: monitoring
