@@ -1,6 +1,6 @@
 node {
 
-  git 'https://github.com/ghassencherni/graphenedb_deploy_etcd.git'
+  git 'https://github.com/ghassencherni/mykveks_deploy_etcd.git'
   withCredentials([usernamePassword(credentialsId: 'aws_credentials', usernameVariable: 'ACCESS_KEY', passwordVariable: 'SECRET_ACCESS')])
 {
 
@@ -8,7 +8,7 @@ node {
 
 
     stage('Getting "config"') {
-      copyArtifacts filter: 'config', fingerprintArtifacts: true, projectName: 'graphenedb_deploy_eks', selector: upstream(fallbackToLastSuccessful: true)
+      copyArtifacts filter: 'config', fingerprintArtifacts: true, projectName: 'mykveks_deploy_eks', selector: upstream(fallbackToLastSuccessful: true)
     }
     stage('create secret containing etcd server certs and ca') {
       sh """
@@ -24,7 +24,7 @@ node {
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           export KUBECONFIG=config
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm install bitnami/etcd --name graphenedb-etcd --values graphenedb.etcd.values --version $etcd_chart_version
+          helm install bitnami/etcd --name mykveks-etcd --values mykveks.etcd.values --version $etcd_chart_version
          """
     }
     
@@ -34,7 +34,7 @@ node {
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           sleep 20
           export KUBECONFIG=config
-          ETCD_URL=https://\$(kubectl get svc --namespace default graphenedb-etcd --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"):2379
+          ETCD_URL=https://\$(kubectl get svc --namespace default mykveks-etcd --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"):2379
          """
     }
   }
@@ -46,8 +46,8 @@ if(action == 'Destroy ETCD') {
           export AWS_ACCESS_KEY_ID='$ACCESS_KEY'
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           export KUBECONFIG=config
-          helm del --purge graphenedb-etcd
-          kubectl delete svc/graphenedb-etcd
+          helm del --purge mykveks-etcd
+          kubectl delete svc/mykveks-etcd
          """
     }
     stage('Delete secret used to store etcd certs') {
