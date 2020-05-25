@@ -24,7 +24,7 @@ node {
           export AWS_SECRET_ACCESS_KEY='$SECRET_ACCESS'
           export KUBECONFIG=config
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm install bitnami/etcd --name mykveks-etcd --values mykveks.etcd.values --version $etcd_chart_version
+          helm install bitnami/etcd --name mykveks-etcd --values mykveks.etcd.values --set auth.rbac.rootPassword=$etcd_admin_password --version $etcd_chart_version
          """
     }
     
