@@ -100,7 +100,7 @@ statefulset:
 
 ## Allow to use etcd without configuring RBAC authentication
 ##
-allowNoneAuthentication: true
+allowNoneAuthentication: false
 
 ## Limits the number of operating system threads that can execute user-level
 ## Go code simultaneously by setting GOMAXPROCS environment variable
